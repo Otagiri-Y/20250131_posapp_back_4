@@ -32,8 +32,7 @@ jobs:
 
       - name: Zip artifact for deployment
         run: |
-          rm -rf venv  # 仮想環境フォルダを削除
-          zip release.zip ./* -r
+          zip -r release.zip . -x "venv/*"
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
@@ -82,3 +81,5 @@ jobs:
           app-name: 'tech0-gen8-step4-pos-app-92'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_47B408464461488E9482C9F4A22161A2 }}
+          package: release.zip
+          deployer: zipDeploy  # OneDeploy を使わず ZipDeploy を指定
