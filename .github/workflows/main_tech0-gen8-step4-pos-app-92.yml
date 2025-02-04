@@ -55,9 +55,19 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: python-app
+          
+      - name: Debug ZIP contents before deployment
+        run: |
+         unzip -l release.zip
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
+        
+      - name: Set up virtual environment on Azure
+        run: |
+         python -m venv venv
+         source venv/bin/activate
+         pip install -r requirements.txt
 
       - name: Set up virtual environment on Azure
         run: |
