@@ -2,6 +2,7 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+import uvicorn
 
 load_dotenv()
 
@@ -22,3 +23,7 @@ app.add_middleware(
 @app.get("/")
 def home():
     return {"message": "Hello from FastAPI!"}
+
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", 8000))  # Azure で PORT 環境変数が設定される場合に対応
+    uvicorn.run(app, host="0.0.0.0", port=port)
